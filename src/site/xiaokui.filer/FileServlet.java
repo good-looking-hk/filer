@@ -22,7 +22,7 @@ public class FileServlet extends HttpServlet {
         if (path == null || "".equals(path)) {
             return;
         }
-        path = Config.ROOT_DIR + SLASH + path;
+        path = WebConfig.fileUploadDir + SLASH + path;
         File file = new File(path);
         if (!file.exists()) {
             res.setContentType("text/plain;charset=utf-8");

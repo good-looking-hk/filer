@@ -28,9 +28,9 @@ public class UploadServlet extends HttpServlet {
 
     private static Logger logger = LogManager.getLogger(UploadServlet.class);
 
-    private static String rootDir = Config.ROOT_DIR;
+    private static String rootDir = WebConfig.fileUploadDir;
 
-    private static final int MAX_FILE_SIZE = Config.MAX_UPLOAD_FILE_SIZE;
+    private static final int MAX_FILE_SIZE = WebConfig.MAX_UPLOAD_FILE_SIZE;
 
     private static final String SLASH = File.separator;
 

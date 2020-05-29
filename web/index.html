@@ -11,7 +11,7 @@
     <div>
         <textarea id="pa" placeholder="请输入需要转换的长链接" style="width:500px;height:60px"></textarea>
         <button id="geneShortUrl">点击生成短链接</button>
-        <h3>转换结果：<p id="result"></p></h3>
+        <p style="font-weight: bold;font-size: 18px;">转换结果：<a id="result" target="_blank"></a></p>
         <h5>结果长久有效，请放心使用</h5>
         <p style="font-size: 13px;">例如输入http://www.baidu.com/aa/bb/cc/dd，得到结果s.xiaokui.site/abcd</p>
     </div>
@@ -23,22 +23,16 @@
         if (longUrl === '') {
             return;
         }
-        if (!longUrl.startsWith("http://") || !longUrl.startsWith("https://")) {
+        if (!longUrl.startsWith("http://") && !longUrl.startsWith("https://")) {
             alert("请输入合法url")
             return;
         }
-        $.post("/short")
+        $.post("/s", {longUrl: longUrl}, function (result) {
+            var shortUrl = result.shortUrl || result
+            $("#result").text(shortUrl)
+            $("#result").attr("href", shortUrl)
+        }, "json")
 
-    });
-    $('#vw').click(function () {
-        var path = $('#pa').val();
-        open('/download?path=' + path, '_blank');
-    });
-    $('#ul').click(function () {
-        var dir = $('#dir').val();
-        var url = '/upload?dir=' + dir;
-        $("form[name='form2']").attr('action', url);
-        $("form[name='form2']").submit();
     });
 </script>
 </html>
