@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传测试页面</title>
+</head>
+<body>
+<h2>文件上传测试页面</h2>
+<div>
+    <h3>测试一：表单上传</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data" target="frameName">
+        <input type="file" name="file">
+        <input type="submit" value="确认上传">
+    </form>
+</div>
+<iframe src="" name="frameName" style="width:500px;height:140px;margin:10px 0;"></iframe>
+<div>
+    <h3>测试二：表单上传(指定文件夹)</h3>
+    <form method="post" enctype="multipart/form-data" target="frameName1" name="form2">
+        <input type="file" name="file">
+        指定文件夹：<input name="dir" value="11" id="dir">
+        <input type="button" value="确认上传" id="ul">
+    </form>
+</div>
+<iframe src="" name="frameName1" style="width:500px;height:140px;margin:10px 0;"></iframe>
+<div>
+    <h3>测试三：文件浏览、下载</h3>
+    <textarea id="pa" placeholder="请输入上传文件路径" style="width:500px;height:60px"></textarea> <button id="dw">点击下载</button> <button id="vw">点击浏览</button>
+</div>
+</body>
+<script src="/jquery.min.js"></script><script>
+    $('#dw').click(function () {
+        var path = $('#pa').val();
+        open('/download?path=' + path + '&download=true', '_blank');
+    });
+    $('#vw').click(function () {
+        var path = $('#pa').val();
+        open('/download?path=' + path, '_blank');
+    });
+    $('#ul').click(function () {
+        var dir = $('#dir').val();
+        var url = '/upload?dir=' + dir;
+        $("form[name='form2']").attr('action', url);
+        $("form[name='form2']").submit();
+    });
+</script>
+</html>

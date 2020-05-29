@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>长链接转换为短链接</title>
+</head>
+<body>
+<h2>长链接转换为短链接</h2>
+<div>
+    <h3>在下面输入需要转换的长链接，以生成对应的短链接</h3>
+    <div>
+        <textarea id="pa" placeholder="请输入需要转换的长链接" style="width:500px;height:60px"></textarea>
+        <button id="geneShortUrl">点击生成短链接</button>
+        <h3>转换结果：<p id="result"></p></h3>
+        <h5>结果长久有效，请放心使用</h5>
+        <p style="font-size: 13px;">例如输入http://www.baidu.com/aa/bb/cc/dd，得到结果s.xiaokui.site/abcd</p>
+    </div>
+</div>
+</body>
+<script src="/jquery.min.js"></script><script>
+    $('#geneShortUrl').click(function () {
+        var longUrl = $('#pa').val();
+        if (longUrl === '') {
+            return;
+        }
+        if (!longUrl.startsWith("http://") || !longUrl.startsWith("https://")) {
+            alert("请输入合法url")
+            return;
+        }
+        $.post("/short")
+
+    });
+    $('#vw').click(function () {
+        var path = $('#pa').val();
+        open('/download?path=' + path, '_blank');
+    });
+    $('#ul').click(function () {
+        var dir = $('#dir').val();
+        var url = '/upload?dir=' + dir;
+        $("form[name='form2']").attr('action', url);
+        $("form[name='form2']").submit();
+    });
+</script>
+</html>
